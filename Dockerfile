@@ -1,6 +1,12 @@
-FROM nginx:latest
-EXPOSE 80
+FROM node:12 AS build
 
-COPY ./dist /usr/share/nginx/html
+WORKDIR /app
 
-CMD ["nginx", "-g", "daemon off;"]
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm install
+COPY . ./
+RUN npm run build
+
+FROM nginx:1.19-alpine
+COPY --from=build /app/dist /usr/share/nginx/html
