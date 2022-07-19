@@ -1,3 +1,3 @@
 export default {
-    host: "http://127.0.0.1:7700"
+    host: "https://api.ratealoo.desante.dev"
 }
